@@ -1,0 +1,17 @@
+{
+  "name": "looper-engineering",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Loop-engineering workspace: autonomous triage/maintenance loops with binding constraints, budgets, and safety gates.",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test",
+    "lint": "echo \"(no linter configured yet — add eslint or biome, then update this script)\" && exit 0",
+    "loop:audit": "npx @cobusgreyling/loop-audit . --suggest",
+    "loop:cost": "npx @cobusgreyling/loop-cost --pattern daily-triage --level L1"
+  },
+  "license": "MIT"
+}

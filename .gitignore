@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Environment / secrets (never commit — mirrors loop-constraints.md denylist)
+.env
+.env.*
+!.env.example
+
+# Logs & OS cruft
+*.log
+.DS_Store
+
+# Loop runtime state (regenerated each session; not source)
+.claude/scheduled_tasks.lock
+.claude/scheduled_tasks.json
+
+# Build output
+dist/
+coverage/
