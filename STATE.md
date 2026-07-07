@@ -1,6 +1,6 @@
 # Loop State — looper-engineering
 
-Last run: 2026-07-02 10:00 (每日 triage #1 via cron `c0940e9b`) · Pattern: daily-triage · L1 report-only
+Last run: 2026-07-06 10:00 (每日 triage — **no-op** ×4，自 `70ad53c` 起无变化) · Pattern: daily-triage · L1 report-only
 
 > 第一周为 **report-only**：loop 只巡检、只提建议，不改业务代码、不 commit / push / 删除。
 
@@ -10,6 +10,7 @@ Last run: 2026-07-02 10:00 (每日 triage #1 via cron `c0940e9b`) · Pattern: da
 本地已有初始提交（分支 `main`），但仓库**无 GitHub 远端、未 push**。连带影响：
 - `.github/workflows/ci.yml` 从未运行——CI 至今 **0 次执行**，连 workflow 语法都未在真实环境验证过。
 - **待你决定**：是否 `git remote add …` + `git push`？（约束：push 前须先告知你 → 你说了才做，目前**未 push**）
+- ⏳ **已挂起自 2026-07-01（约 5 天）**——这是当前唯一阻挡进度的项；不处理的话每日巡检会一直是 no-op。
 
 ## Watch List
 
@@ -24,7 +25,7 @@ Last run: 2026-07-02 10:00 (每日 triage #1 via cron `c0940e9b`) · Pattern: da
 - **建议**：跑一次 `npm install` 生成并提交 `package-lock.json`，CI 切 `npm ci`。
 
 ### W2 — 预算 / 节奏口径（持续观察）
-三处 cadence 口径已一致（≤2/天）。**今日已达 2/2 运行上限**（首次 triage + 本次）——今日若再触发应 early-exit。
+三处 cadence 口径已一致（≤2/天）。稳态下每日 1 次触发，均在上限内。
 
 ## Recent Noise (ignored this run)
 - 工作树未提交改动：`STATE.md`（cron 同步 + 本次 triage 更新）、`loop-run-log.md`——待你决定是否提交。
@@ -32,6 +33,7 @@ Last run: 2026-07-02 10:00 (每日 triage #1 via cron `c0940e9b`) · Pattern: da
 - 依赖风险：**0 deps / 0 devDeps**，供应链攻击面最小（正面信号）。
 
 ## Done / Last Run
+- **2026-07-03 → 07-06 — 每日 triage 连续 4 次 no-op（report-only）**：自 `70ad53c` 起**零代码变化**——无新提交、`npm test` 每次绿（2/2）、0 依赖、无远端、`loop-pause-all` 未激活。开放项（High 远端/push、W-A、W-B、W2）全程不变，**无新增发现**。report-only 改动（本 STATE.md + run log）持续累积在工作树、**未提交**。
 - **2026-07-02 10:00 — 每日 triage #1（cron `c0940e9b`，report-only）**：加载 13 条约束（`loop-pause-all` 未激活）；`npm test` 绿（2/2）；git 树仅 `STATE.md` 未提交；无新 commit / 无 push。本次新增发现 **W-B（缺 lockfile）**。
 - **2026-07-01 — 本地初始提交**：`git commit`（分支 `main`，未 push）纳入全部 scaffold 文件。
 - **2026-07-01 — 项目补齐（应用户要求）**：`package.json` / `test/` / `README` / `docs/safety.md` / `docs/loop-design-checklist.md` / `.github/` / `patterns/` / `.gitignore` / 占位符填充。

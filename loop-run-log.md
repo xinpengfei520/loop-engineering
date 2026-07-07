@@ -46,3 +46,31 @@ Append one entry per run. Prune entries older than 30 days.
 }
 ```
 - 2026-07-02 report-only: 4 findings (1 High: remote/push/CI, 3 Watch incl. new W-B missing lockfile). npm test green 2/2. No code changed, no git ops. See STATE.md.
+```json
+{
+  "run_id": "2026-07-03T10:00:00Z",
+  "pattern": "daily-triage",
+  "duration_s": 20,
+  "items_found": 0,
+  "actions_taken": 0,
+  "escalations": 0,
+  "tokens_estimate": 9000,
+  "outcome": "no-op"
+}
+```
+- 2026-07-03 no-op: no changes since 70ad53c. npm test green 2/2. Open items unchanged, no new findings. No code changed, no git ops.
+```json
+{
+  "run_id": "2026-07-06T10:00:00Z",
+  "pattern": "daily-triage",
+  "duration_s": 18,
+  "items_found": 0,
+  "actions_taken": 0,
+  "escalations": 0,
+  "tokens_estimate": 8000,
+  "outcome": "no-op",
+  "note": "consolidates 2026-07-04..07-06 — identical steady-state no-op runs"
+}
+```
+- 2026-07-04 → 07-06 no-op ×3: no changes since 70ad53c, npm test green 2/2, open items unchanged. Consolidated (prior days' writes were superseded by next-day fires). No code changed, no git ops.
+- 2026-07-06 no-op (manual re-run, 2/2 today): user re-triggered; state identical to earlier run — head 70ad53c, npm test 2/2, no new findings. No code changed, no git ops.
