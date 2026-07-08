@@ -7,6 +7,7 @@
 | Loop | Max runs/day | Max tokens/day | Max sub-agent spawns/run |
 |------|--------------|----------------|--------------------------|
 | Daily Triage | 2 | 100k | 0 (L1) / 2 (L2) |
+| Freshness Watch | 2 | 30k | 0 (L1) |
 
 ## On budget exceed
 

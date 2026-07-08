@@ -26,3 +26,27 @@ patterns:
     gates:
       auto_merge: false
       human_review_required: true
+
+  - id: freshness-watch
+    title: Freshness Watch
+    doc: patterns/freshness-watch.md
+    cadence: 1d
+    level: L1
+    status: report-only
+    tool: claude
+    entrypoint: "/loop 1d Run $loop-constraints, then $loop-freshness."
+    schedule: "23 18 * * *"
+    skills:
+      - loop-constraints
+      - loop-freshness
+      - loop-budget
+    verifier: .claude/agents/loop-verifier.md
+    state_file: STATE.md
+    run_log: loop-run-log.md
+    budget:
+      max_runs_per_day: 2
+      max_tokens_per_day: 30000
+      max_subagents_per_run: 0
+    gates:
+      auto_merge: false
+      human_review_required: true

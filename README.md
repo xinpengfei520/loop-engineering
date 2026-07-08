@@ -38,6 +38,7 @@ constraints, explicit budgets, and human safety gates**. Scaffolded with
 | Pattern | Cadence | Level | Command |
 |---------|---------|-------|---------|
 | [Daily Triage](patterns/daily-triage.md) | `1d` | L1 report-only | `/loop 1d Run $loop-constraints, then $loop-triage.` |
+| [Freshness Watch](patterns/freshness-watch.md) | `1d` | L1 report-only | `/loop 1d Run $loop-constraints, then $loop-freshness.` |
 
 ## Local development
 

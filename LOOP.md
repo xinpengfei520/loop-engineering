@@ -4,7 +4,8 @@
 
 | Pattern | Cadence | Status | Command |
 |---------|---------|--------|---------|
-| Daily Triage | 1d | L1 report-only | `/loop 1d Run $loop-triage` |
+| Daily Triage | 1d | L1 report-only | `/loop 1d Run $loop-constraints, then $loop-triage.` |
+| Freshness Watch | 1d (18:23) | L1 report-only | `/loop 1d Run $loop-constraints, then $loop-freshness.` |
 
 ## Human Gates
 
@@ -29,4 +30,5 @@
 ## Links
 
 - Pattern: [daily-triage](../../patterns/daily-triage.md)
+- Pattern: [freshness-watch](../../patterns/freshness-watch.md)
 - Checklist: [loop-design-checklist](../../docs/loop-design-checklist.md)
