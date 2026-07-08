@@ -13,8 +13,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      # No lockfile yet and no runtime deps, so `npm install` is correct here.
-      # Switch to `npm ci` once a package-lock.json is committed.
-      - run: npm install --no-audit --no-fund
+      # Lockfile committed → reproducible installs via `npm ci`.
+      - run: npm ci
       - run: npm run lint
       - run: npm test
