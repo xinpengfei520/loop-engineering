@@ -88,3 +88,31 @@ Append one entry per run. Prune entries older than 30 days.
 }
 ```
 - 2026-07-07 action: added origin remote, pushed main (3 commits), CI green on first run. High item (remote/push/CI) resolved. No business code changed.
+```json
+{
+  "run_id": "2026-07-08T10:00:00Z",
+  "pattern": "daily-triage",
+  "duration_s": 20,
+  "items_found": 0,
+  "actions_taken": 0,
+  "escalations": 0,
+  "tokens_estimate": 9000,
+  "outcome": "no-op",
+  "note": "steady state; synced with origin; last 2 CI runs green; open Watch W-A/W-B unchanged"
+}
+```
+- 2026-07-08 no-op: synced with origin, no code changes since 07-07, npm test 2/2, last 2 CI runs green. Open: W-A (hollow lint), W-B (no lockfile). No git ops.
+```json
+{
+  "run_id": "2026-07-08T11:00:00Z",
+  "pattern": "daily-triage",
+  "duration_s": 90,
+  "items_found": 0,
+  "actions_taken": 1,
+  "escalations": 0,
+  "tokens_estimate": 18000,
+  "outcome": "action-taken",
+  "note": "W-B resolved: package-lock.json committed + CI switched to npm ci. Pushed 95d81e6; CI success (run 28913590588)."
+}
+```
+- 2026-07-08 action: landed W-B — added package-lock.json, CI now uses npm ci. Verified locally (npm ci + test) and in CI (green). No business code changed.
