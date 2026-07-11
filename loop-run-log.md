@@ -116,3 +116,59 @@ Append one entry per run. Prune entries older than 30 days.
 }
 ```
 - 2026-07-08 action: landed W-B — added package-lock.json, CI now uses npm ci. Verified locally (npm ci + test) and in CI (green). No business code changed.
+```json
+{
+  "run_id": "2026-07-08T18:23:00Z",
+  "pattern": "freshness-watch",
+  "duration_s": 15,
+  "items_found": 0,
+  "actions_taken": 0,
+  "escalations": 0,
+  "tokens_estimate": 7000,
+  "outcome": "no-op",
+  "note": "first freshness-watch run; all 4 checks pass"
+}
+```
+- 2026-07-08 no-op (freshness-watch, first run): STATE.md fresh (last run today), git tree clean (loop cb21d6d committed+pushed), no run-log entry >30d (oldest real 2026-07-01), no open High items. Nothing tripped; no F- findings. No code changed, no git ops.
+```json
+{
+  "run_id": "2026-07-09T18:23:00Z",
+  "pattern": "freshness-watch",
+  "duration_s": 15,
+  "items_found": 1,
+  "actions_taken": 0,
+  "escalations": 0,
+  "tokens_estimate": 8000,
+  "outcome": "report-only",
+  "note": "F-1: loop-run-log.md uncommitted across runs → flagged for human commit decision"
+}
+```
+- 2026-07-09 report-only (freshness-watch): checks 1/3/4 pass (STATE.md 1d old, oldest run 2026-07-01 = 8d, no open High). Check 2 trips → wrote F-1 to Watch List (report-only run-log writes accumulating uncommitted). No code changed, no git ops; commit decision left to human.
+```json
+{
+  "run_id": "2026-07-09T18:53:00Z",
+  "pattern": "freshness-watch",
+  "duration_s": 12,
+  "items_found": 0,
+  "actions_taken": 0,
+  "escalations": 0,
+  "tokens_estimate": 6000,
+  "outcome": "no-op",
+  "note": "run 2/2 for 2026-07-09 (at daily cap). No new findings; F-1 still open (uncommitted pile grew to STATE.md + loop-run-log.md). 3rd run today would breach cap."
+}
+```
+- 2026-07-09 no-op (freshness-watch, run 2/2): nothing new trips; F-1 unchanged/open — report-only diffs still uncommitted (now 2 files). At daily run cap (2/2). No new F- finding (no duplication). No code changed, no git ops. Human commit still pending to clear F-1.
+```json
+{
+  "run_id": "2026-07-10T18:23:00Z",
+  "pattern": "freshness-watch",
+  "duration_s": 18,
+  "items_found": 1,
+  "actions_taken": 0,
+  "escalations": 0,
+  "tokens_estimate": 9000,
+  "outcome": "report-only",
+  "note": "F-2 raised: daily-triage has no active cron this session (only 3d74fece freshness); STATE.md Last run stuck at 2026-07-08. F-1 still open (uncommitted diffs, 4th run)."
+}
+```
+- 2026-07-10 report-only (freshness-watch, run 1/2): CronList shows only freshness-watch scheduled → triage not firing this session. Wrote F-2 (triage unscheduled, STATE.md aging 2d; will trip staleness ~07-15). F-1 still open (uncommitted diffs since 07-08). Checks 3/4 pass. No code changed, no git ops.
