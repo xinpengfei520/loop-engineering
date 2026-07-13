@@ -227,3 +227,17 @@ Append one entry per run. Prune entries older than 30 days.
 }
 ```
 - 2026-07-12 no-op (freshness-watch, run 1/2): all checks pass on a CLEAN tree — the new auto-commit policy (H-1/option a) eliminated the F-1 pile-up. Appended this entry and committed bookkeeping per loop-constraints Bookkeeping rule (no push). No F- findings; no code changed.
+```json
+{
+  "run_id": "2026-07-13T10:03:00Z",
+  "pattern": "daily-triage",
+  "duration_s": 22,
+  "items_found": 1,
+  "actions_taken": 1,
+  "escalations": 0,
+  "tokens_estimate": 12000,
+  "outcome": "report-only",
+  "note": "Steady + healthy: npm test 2/2, clean tree (H-1 auto-commit stable). New Watch W-C: unpushed local commits accumulating (main 3 ahead of origin), origin CI going stale — needs push cadence decision. Bookkeeping self-committed."
+}
+```
+- 2026-07-13 report-only (daily-triage, cron 9d5ebb8f): npm test 2/2 green, tree clean (auto-commit policy stable, F-1 not recurring). Added W-C — unpushed commits piling up locally (main 3 ahead of origin), origin CI stale; push cadence is a pending human decision (non-blocking). No new High. Bookkeeping self-committed per Bookkeeping rule (no push).
