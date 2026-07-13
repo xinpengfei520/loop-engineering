@@ -25,7 +25,8 @@ When an input is absent (e.g. no CI yet), the loop says so rather than inventing
 
 ## Guardrails
 
-- No code changes, no `git commit` / `push`, no deletions at L1.
+- No code changes, no `git push`, no deletions at L1. May commit **only** its own bookkeeping
+  (`STATE.md` + `loop-run-log.md`) at end of run — see the Bookkeeping rule in `loop-constraints.md`.
 - Only proposes; never acts on fixes until the L2 checklist in
   [`../docs/loop-design-checklist.md`](../docs/loop-design-checklist.md) is complete.
 

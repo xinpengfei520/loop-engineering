@@ -44,3 +44,10 @@ Produce a markdown report with these sections:
 - When in doubt, put it in Watch or Noise rather than creating work.
 - Never propose architectural overhauls during triage — this skill is for signal, not invention.
 - Respect the project's existing skills and conventions (they will be provided in context).
+
+## End of run — bookkeeping commit
+
+After writing `STATE.md` and appending to `loop-run-log.md`, commit **only those two files**
+(`docs(loop): …` message, no push) per the Bookkeeping rule in `loop-constraints.md`. If
+`git status` shows any other modified path, do NOT commit — leave the tree and escalate.
+This keeps report-only bookkeeping from piling up uncommitted.

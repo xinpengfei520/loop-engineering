@@ -30,7 +30,7 @@ Reading these for context is allowed; **writing/deleting is not**. A match → s
 
 | Level | The loop may write to… |
 |-------|------------------------|
-| **L1 (now)** | `STATE.md`, `loop-run-log.md` only. Report-only — no code changes. |
+| **L1 (now)** | `STATE.md`, `loop-run-log.md` only. Report-only — no code changes. May `git commit` those two bookkeeping files at end of run (never `push`); any other staged path → do not commit, escalate. |
 | **L2** | Above + source files **outside the denylist**, one fix per run, in an isolated worktree, behind a draft PR. |
 | **L3** | Above + broader scope with explicit per-path gates in `LOOP.md`. |
 

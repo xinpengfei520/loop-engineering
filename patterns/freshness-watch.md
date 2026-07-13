@@ -28,8 +28,10 @@ deleted — those remain **human decisions** flagged for confirmation.
 
 ## Guardrails
 
-- No code changes, no `git commit` / `push`, no deletions at L1.
-- Never commits or prunes on its own — it only *names* stale bookkeeping and suggests the action.
+- No code changes, no `git push`, no deletions at L1. May commit **only** its own bookkeeping
+  (`STATE.md` + `loop-run-log.md`) at end of run — see the Bookkeeping rule in `loop-constraints.md`.
+- Never prunes the run log or commits non-bookkeeping files on its own — it only *names* stale
+  bookkeeping and suggests the action.
 - Does not duplicate `loop-triage`'s codebase findings; scope is the loop's own hygiene.
 
 ## Scheduling

@@ -6,8 +6,9 @@ constraints, explicit budgets, and human safety gates**. Scaffolded with
 [`@cobusgreyling/loop-init`](https://www.npmjs.com/package/@cobusgreyling/loop-init).
 
 > **Current maturity: L1 (report-only).** Loops observe and report to `STATE.md`.
-> They do **not** modify code, commit, push, or delete. Auto-fix (L2) is off until the
-> checklist in [`docs/loop-design-checklist.md`](docs/loop-design-checklist.md) is complete.
+> They do **not** modify code, push, or delete; the only git write they may make is
+> committing their own bookkeeping (`STATE.md` / `loop-run-log.md`) at end of run. Auto-fix
+> (L2) is off until the checklist in [`docs/loop-design-checklist.md`](docs/loop-design-checklist.md) is complete.
 
 ## Repo layout
 

@@ -51,3 +51,11 @@ findings — record a one-line no-op note and append a `no-op` entry to `loop-ru
   not the codebase.
 - Honor `loop-pause-all` and the budget switch (loaded by `loop-constraints` / `loop-budget`).
 - Append exactly one entry to `loop-run-log.md` per run (`pattern: freshness-watch`).
+
+## End of run — bookkeeping commit
+
+After writing findings and appending the run-log entry, commit **only** `STATE.md` +
+`loop-run-log.md` (`docs(loop): …`, no push) per the Bookkeeping rule in `loop-constraints.md`.
+If any other path is modified, do NOT commit — escalate. Because bookkeeping is now committed
+each run, check 2 (report-only diffs piling up) should normally stay clean; it trips only if a
+commit was skipped or non-bookkeeping files are stuck uncommitted.

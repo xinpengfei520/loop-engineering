@@ -27,5 +27,11 @@
 - If token spend hits 80% of daily cap, switch to report-only
 - If loop-pause-all is active, exit immediately
 
+## Bookkeeping (loop self-tracking)
+- Loops MAY `git commit` their own bookkeeping at the end of a run — **only** `STATE.md` and `loop-run-log.md`. This is the sole autonomous git write allowed at L1.
+- Never `git push` as part of it — push stays human-gated (see Push & Merge).
+- Never include any other path (business code, configs, skills, docs) in a bookkeeping commit — bookkeeping files only. If other files are staged, do NOT commit; escalate.
+- Use a `docs(loop): …` commit message.
+
 ---
 <!-- Add your own rules below. Use plain English. The loop reads this verbatim. -->

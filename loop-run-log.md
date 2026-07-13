@@ -172,3 +172,44 @@ Append one entry per run. Prune entries older than 30 days.
 }
 ```
 - 2026-07-10 report-only (freshness-watch, run 1/2): CronList shows only freshness-watch scheduled → triage not firing this session. Wrote F-2 (triage unscheduled, STATE.md aging 2d; will trip staleness ~07-15). F-1 still open (uncommitted diffs since 07-08). Checks 3/4 pass. No code changed, no git ops.
+```json
+{
+  "run_id": "2026-07-11T10:03:00Z",
+  "pattern": "daily-triage",
+  "duration_s": 30,
+  "items_found": 1,
+  "actions_taken": 0,
+  "escalations": 0,
+  "tokens_estimate": 14000,
+  "outcome": "report-only"
+}
+```
+- 2026-07-11 report-only (daily-triage, cron 9d5ebb8f, first run since re-scheduling): npm test 2/2 green, tree clean, F-1/F-2 resolved. One optional open item — main 1 commit ahead of origin (3a0e047 unpushed). Watch: W-A only. No new High; no code changed, no git ops.
+```json
+{
+  "run_id": "2026-07-11T18:23:00Z",
+  "pattern": "freshness-watch",
+  "duration_s": 12,
+  "items_found": 0,
+  "actions_taken": 0,
+  "escalations": 0,
+  "tokens_estimate": 6000,
+  "outcome": "no-op",
+  "note": "all 4 checks pass; F-1/F-2 stay resolved. Fresh uncommitted bookkeeping from today's triage is 1-run-old (below multi-run threshold) — will trip check 2 next run if not committed."
+}
+```
+- 2026-07-11 no-op (freshness-watch, run 1/1): checks 1-4 all pass; triage firing again (STATE.md 0d old), no rot, no stuck High. Fresh triage bookkeeping uncommitted but below multi-run threshold → no F- finding. Heads-up: commit today's bookkeeping to keep tree clean. No code changed, no git ops.
+```json
+{
+  "run_id": "2026-07-12T10:03:00Z",
+  "pattern": "daily-triage",
+  "duration_s": 25,
+  "items_found": 1,
+  "actions_taken": 0,
+  "escalations": 0,
+  "tokens_estimate": 13000,
+  "outcome": "report-only",
+  "note": "Escalated H-1 (needs human decision): report-only bookkeeping commit policy — recurring F-1 churn. npm test 2/2; main 1 ahead of origin."
+}
+```
+- 2026-07-12 report-only (daily-triage, cron 9d5ebb8f): npm test 2/2 green. Escalated H-1 to High/needs-confirmation — recurring uncommitted-bookkeeping churn that keeps re-tripping freshness F-1; offered (a) authorize loop to auto-commit its own bookkeeping / (b) periodic manual / (c) stop flagging. main still 1 ahead of origin. Watch: W-A. No code changed, no git ops.
