@@ -1,6 +1,6 @@
 # Loop State — looper-engineering
 
-Last run: 2026-07-13 (每日 triage：`npm test` 2/2 绿；工作树干净（H-1 自动提交策略生效）；`main` 领先 `origin` **3**（未 push 漂移中，见 W-C） · Pattern: daily-triage · Remote: `origin` → github.com/xinpengfei520/loop-engineering
+Last run: 2026-07-13 (每日 triage + 晚间 freshness 均 no-op/健康；`npm test` 2/2 绿；工作树干净；**当晚已 push 同步 origin，CI 绿**，W-C 转为"按设计滞后"观察项) · Pattern: daily-triage · Remote: `origin` → github.com/xinpengfei520/loop-engineering
 
 > 第一周为 **report-only**：loop 只巡检、只提建议，不改业务代码、不 commit / push / 删除。
 
@@ -24,9 +24,10 @@ _无 High 级阻塞。_ L2 前置仍是补真实测试 + linter（W-A）。未 p
 ### W2 — 预算 / 节奏口径（持续观察）
 三处 cadence 口径已一致（≤2/天）。稳态下每日 1 次触发，均在上限内。
 
-### W-C — 未 push 的本地提交在累积（2026-07-13 起观察）
-H-1 自动提交策略生效后，工作树保持干净，但每次运行的 bookkeeping commit 只落在本地；`main` 已领先 `origin/main` **3** 个提交，且预计 ~1–2/天 继续漂移。副作用：origin 上 CI 不再对最新状态跑，远端「是否可构建」信号变陈旧。push 属人工闸门，本 loop 不自行 push。
-- **建议**：要么按需手动 `git push`，要么定一个 push 节奏（如每日一次或攒到 N 个提交时）由你确认后执行。**待人工决定节奏**（非阻塞）。
+### W-C — 未 push 的本地提交按设计滞后（持续观察；push 保持人工）
+H-1 自动提交策略下工作树始终干净，但 bookkeeping commit 只落本地 → `origin` 会滞后，直到手动 push。**这是你选择"push 保持人工"后的预期稳态**，非缺陷。
+- **上次同步**：2026-07-13 晚，push `cb21d6d..c11e305`（5 提交），`main` ↔ `origin` 同步，CI **success**（run `29302939965`）。
+- 此后每次运行本地会再领先 1，按需手动 `git push` 即可清账并跑 CI。若嫌烦可改为授权 loop 定期自动 push（需放宽 push 闸门，另行决定）。非阻塞。
 
 ### ~~F-1 — report-only 写入未提交、跨运行累积~~ ✅ 已解决（2026-07-10，应用户指示）
 累积的 report-only 簿记（`STATE.md` + `loop-run-log.md`，含 4 次 freshness 运行）已一次性 commit，见 Done。
@@ -38,6 +39,7 @@ H-1 自动提交策略生效后，工作树保持干净，但每次运行的 boo
 - 依赖风险：**0 deps / 0 devDeps**，供应链攻击面最小（正面信号）。
 
 ## Done / Last Run
+- **2026-07-13 晚 — push 同步 origin（应用户指示）**：`git push origin main` 推送 5 个累积提交（`cb21d6d..c11e305`：H-1 策略提交 + 4 个 bookkeeping 提交）；`main` ↔ `origin` 同步（0/0）；GitHub Actions CI **success**（run `29302939965`）。**清空 W-C 积压**，origin CI 恢复最新。push 仍为人工闸门；标记本 W-C-resolution 的 bookkeeping 提交此后会使本地再领先 1（预期滞后）。
 - **2026-07-13 — 每日 triage（cron `9d5ebb8f`，report-only）**：`npm test` **2/2 绿**、`loop-pause-all` 未激活、**工作树干净**（H-1 自动提交策略稳定运行，F-1 未复发）。新增 **W-C**（观察项）：未 push 的本地提交在累积（`main` 领先 `origin` 3，预计 ~1–2/天），origin CI 信号变陈旧——待你定 push 节奏。无新增 High。
 - **2026-07-12 — 落地 H-1 决策：授权 loop 自动提交簿记（应用户指示，选 (a)）**：在 `loop-constraints.md` 新增「Bookkeeping」节——loop 每次运行末尾可 commit **仅** `STATE.md` + `loop-run-log.md`（不 push、不含其他路径）；同步更新 loop-triage / loop-freshness 技能（新增 end-of-run 提交步骤）、`patterns/*.md` Guardrails、`docs/safety.md` §3、README 成熟度说明。**从此根治 F-1 churn**。此为用户授权的策略变更提交（含非簿记文件），commit-only 未 push。
 - **2026-07-12 — 每日 triage（cron `9d5ebb8f`，report-only）**：`npm test` **2/2 绿**、`loop-pause-all` 未激活。升级 H-1（待人工确认）→ 同日由用户拍板 (a)。其余：`main` 领先 `origin`（`3a0e047` 未 push，可选）。Watch 仅 W-A。

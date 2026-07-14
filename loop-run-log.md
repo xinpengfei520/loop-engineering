@@ -255,3 +255,4 @@ Append one entry per run. Prune entries older than 30 days.
 }
 ```
 - 2026-07-13 no-op (freshness-watch, run 1/2): all checks pass, tree clean. W-C (unpushed drift) tracked by triage, not re-flagged (freshness check 2 = uncommitted diffs, which are clean). Bookkeeping self-committed per Bookkeeping rule (no push).
+- 2026-07-13 evening — manual action (user-authorized push): pushed cb21d6d..c11e305 (5 commits) → main ↔ origin synced (0/0), CI success (run 29302939965). W-C backlog cleared; reframed as "by-design lag" (push stays manual). Not a loop run — no JSON entry.
