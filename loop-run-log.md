@@ -241,3 +241,17 @@ Append one entry per run. Prune entries older than 30 days.
 }
 ```
 - 2026-07-13 report-only (daily-triage, cron 9d5ebb8f): npm test 2/2 green, tree clean (auto-commit policy stable, F-1 not recurring). Added W-C — unpushed commits piling up locally (main 3 ahead of origin), origin CI stale; push cadence is a pending human decision (non-blocking). No new High. Bookkeeping self-committed per Bookkeeping rule (no push).
+```json
+{
+  "run_id": "2026-07-13T18:23:00Z",
+  "pattern": "freshness-watch",
+  "duration_s": 11,
+  "items_found": 0,
+  "actions_taken": 1,
+  "escalations": 0,
+  "tokens_estimate": 5500,
+  "outcome": "no-op",
+  "note": "Clean no-op; all 4 checks pass. Unpushed drift (main ahead of origin) is W-C's scope (unpushed != uncommitted) — not duplicated here. Bookkeeping self-committed."
+}
+```
+- 2026-07-13 no-op (freshness-watch, run 1/2): all checks pass, tree clean. W-C (unpushed drift) tracked by triage, not re-flagged (freshness check 2 = uncommitted diffs, which are clean). Bookkeeping self-committed per Bookkeeping rule (no push).
