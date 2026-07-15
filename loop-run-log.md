@@ -256,3 +256,17 @@ Append one entry per run. Prune entries older than 30 days.
 ```
 - 2026-07-13 no-op (freshness-watch, run 1/2): all checks pass, tree clean. W-C (unpushed drift) tracked by triage, not re-flagged (freshness check 2 = uncommitted diffs, which are clean). Bookkeeping self-committed per Bookkeeping rule (no push).
 - 2026-07-13 evening — manual action (user-authorized push): pushed cb21d6d..c11e305 (5 commits) → main ↔ origin synced (0/0), CI success (run 29302939965). W-C backlog cleared; reframed as "by-design lag" (push stays manual). Not a loop run — no JSON entry.
+```json
+{
+  "run_id": "2026-07-14T10:03:00Z",
+  "pattern": "daily-triage",
+  "duration_s": 18,
+  "items_found": 0,
+  "actions_taken": 1,
+  "escalations": 0,
+  "tokens_estimate": 9000,
+  "outcome": "no-op",
+  "note": "Steady/healthy no-op: npm test 2/2, clean tree, no change since 07-13 push (origin lags 1 by design). Only open item W-A. Bookkeeping self-committed."
+}
+```
+- 2026-07-14 no-op (daily-triage, cron 9d5ebb8f): steady state, npm test 2/2, tree clean, no new findings. origin lags 1 (d600be7, W-C by-design). Only open item: W-A. Bookkeeping self-committed (no push).
