@@ -270,3 +270,17 @@ Append one entry per run. Prune entries older than 30 days.
 }
 ```
 - 2026-07-14 no-op (daily-triage, cron 9d5ebb8f): steady state, npm test 2/2, tree clean, no new findings. origin lags 1 (d600be7, W-C by-design). Only open item: W-A. Bookkeeping self-committed (no push).
+```json
+{
+  "run_id": "2026-07-14T18:23:00Z",
+  "pattern": "freshness-watch",
+  "duration_s": 10,
+  "items_found": 0,
+  "actions_taken": 1,
+  "escalations": 0,
+  "tokens_estimate": 5000,
+  "outcome": "no-op",
+  "note": "Clean no-op; all 4 checks pass. Oldest run 2026-07-01 (13d) — will approach 30d prune threshold ~07-31. Bookkeeping self-committed."
+}
+```
+- 2026-07-14 no-op (freshness-watch, run 1/2): all checks pass, tree clean. Note: oldest run-log entry 2026-07-01 (13d) — heads-up that check 3 (>30d rot) will start pruning ~07-31. Bookkeeping self-committed (no push).
