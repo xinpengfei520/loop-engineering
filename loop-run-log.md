@@ -312,3 +312,4 @@ Append one entry per run. Prune entries older than 30 days.
 }
 ```
 - 2026-07-15 no-op (freshness-watch, run 1/2): all checks pass, tree clean. W-D logged by triage (transient, monitor) — not a freshness concern. Oldest run-log entry 14d. Bookkeeping self-committed (no push).
+- 2026-07-16 — manual action (user-authorized push): pushed c11e305..3ec138c (5 commits) → main ↔ origin synced (0/0), CI success (run 29492656231). W-C last-synced marker updated. Not a loop run — no JSON entry.
