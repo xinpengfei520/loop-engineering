@@ -313,3 +313,17 @@ Append one entry per run. Prune entries older than 30 days.
 ```
 - 2026-07-15 no-op (freshness-watch, run 1/2): all checks pass, tree clean. W-D logged by triage (transient, monitor) — not a freshness concern. Oldest run-log entry 14d. Bookkeeping self-committed (no push).
 - 2026-07-16 — manual action (user-authorized push): pushed c11e305..3ec138c (5 commits) → main ↔ origin synced (0/0), CI success (run 29492656231). W-C last-synced marker updated. Not a loop run — no JSON entry.
+```json
+{
+  "run_id": "2026-07-16T10:03:00Z",
+  "pattern": "daily-triage",
+  "duration_s": 40,
+  "items_found": 1,
+  "actions_taken": 1,
+  "escalations": 0,
+  "tokens_estimate": 12000,
+  "outcome": "no-op",
+  "note": "Healthy: node --test (=npm test) 2/2. Self-inflicted false alarm from 'node --test test/' (dir arg -> MODULE_NOT_FOUND in Node 22), corrected. Fixed a STATE.md glitch: missing '## Recent Noise' header + stale noise, restored. Canonical cmd = npm test / node --test (no path). Bookkeeping self-committed."
+}
+```
+- 2026-07-16 no-op (daily-triage, cron 9d5ebb8f): suite healthy (node --test / npm test 2/2). Caught+corrected my own false alarm (node --test test/ dir arg → MODULE_NOT_FOUND, not a regression). Restored missing '## Recent Noise' header in STATE.md + refreshed stale noise; logged canonical test cmd. origin 1 behind (W-C). No new High. Bookkeeping self-committed (no push).
