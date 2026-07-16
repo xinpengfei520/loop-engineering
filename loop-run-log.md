@@ -298,3 +298,17 @@ Append one entry per run. Prune entries older than 30 days.
 }
 ```
 - 2026-07-15 report-only (daily-triage, cron 9d5ebb8f): npm test hung >2min on first invocation → investigated, not reproducible (node --test 50ms, npm test 0.21s, both 2/2). Added W-D (transient npm test stall, monitor only). Suite healthy, tree clean, origin 3 behind (W-C). No new High. Bookkeeping self-committed (no push).
+```json
+{
+  "run_id": "2026-07-15T18:23:00Z",
+  "pattern": "freshness-watch",
+  "duration_s": 10,
+  "items_found": 0,
+  "actions_taken": 1,
+  "escalations": 0,
+  "tokens_estimate": 5000,
+  "outcome": "no-op",
+  "note": "Clean no-op; all 4 checks pass. W-D (transient test stall) is a Watch breadcrumb, not stuck-High. Oldest run 2026-07-01 (14d). Bookkeeping self-committed."
+}
+```
+- 2026-07-15 no-op (freshness-watch, run 1/2): all checks pass, tree clean. W-D logged by triage (transient, monitor) — not a freshness concern. Oldest run-log entry 14d. Bookkeeping self-committed (no push).
