@@ -284,3 +284,17 @@ Append one entry per run. Prune entries older than 30 days.
 }
 ```
 - 2026-07-14 no-op (freshness-watch, run 1/2): all checks pass, tree clean. Note: oldest run-log entry 2026-07-01 (13d) — heads-up that check 3 (>30d rot) will start pruning ~07-31. Bookkeeping self-committed (no push).
+```json
+{
+  "run_id": "2026-07-15T10:03:00Z",
+  "pattern": "daily-triage",
+  "duration_s": 150,
+  "items_found": 1,
+  "actions_taken": 1,
+  "escalations": 0,
+  "tokens_estimate": 16000,
+  "outcome": "report-only",
+  "note": "npm test hung >2min on first call (timed out). Investigated: node --test 2/2 in 50ms; npm test re-run 2/2 in 0.21s → NOT reproducible. Logged W-D (transient, monitor). node v22.16.0/npm 10.9.2. Test suite healthy. Bookkeeping self-committed."
+}
+```
+- 2026-07-15 report-only (daily-triage, cron 9d5ebb8f): npm test hung >2min on first invocation → investigated, not reproducible (node --test 50ms, npm test 0.21s, both 2/2). Added W-D (transient npm test stall, monitor only). Suite healthy, tree clean, origin 3 behind (W-C). No new High. Bookkeeping self-committed (no push).
