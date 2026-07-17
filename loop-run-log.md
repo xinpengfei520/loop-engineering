@@ -327,3 +327,17 @@ Append one entry per run. Prune entries older than 30 days.
 }
 ```
 - 2026-07-16 no-op (daily-triage, cron 9d5ebb8f): suite healthy (node --test / npm test 2/2). Caught+corrected my own false alarm (node --test test/ dir arg → MODULE_NOT_FOUND, not a regression). Restored missing '## Recent Noise' header in STATE.md + refreshed stale noise; logged canonical test cmd. origin 1 behind (W-C). No new High. Bookkeeping self-committed (no push).
+```json
+{
+  "run_id": "2026-07-16T18:00:00Z",
+  "pattern": "daily-triage",
+  "duration_s": 25,
+  "items_found": 0,
+  "actions_taken": 0,
+  "escalations": 0,
+  "tokens_estimate": 9000,
+  "outcome": "no-op",
+  "note": "Same-day 2nd triage run (2/2 daily cap). Zero drift since 1be0088 (git diff HEAD empty). npm test 2/2 exit 0. Tree clean, origin 2 behind (W-C by-design). No new findings. Bookkeeping self-committed (no push)."
+}
+```
+- 2026-07-16 no-op (daily-triage, 2nd run of day): budget run 2/2, ~24k/100k tokens spent today. Nothing changed since morning run (1be0088) — clean no-op. Suite 2/2. Open items unchanged: W-A (L2 prereq), W-D (transient, monitor). Bookkeeping self-committed (no push).
