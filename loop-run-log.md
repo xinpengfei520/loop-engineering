@@ -341,3 +341,17 @@ Append one entry per run. Prune entries older than 30 days.
 }
 ```
 - 2026-07-16 no-op (daily-triage, 2nd run of day): budget run 2/2, ~24k/100k tokens spent today. Nothing changed since morning run (1be0088) — clean no-op. Suite 2/2. Open items unchanged: W-A (L2 prereq), W-D (transient, monitor). Bookkeeping self-committed (no push).
+```json
+{
+  "run_id": "2026-07-17T10:03:00Z",
+  "pattern": "daily-triage",
+  "duration_s": 45,
+  "items_found": 1,
+  "actions_taken": 0,
+  "escalations": 1,
+  "tokens_estimate": 13000,
+  "outcome": "report-only",
+  "note": "Code side healthy: npm test 2/2, tree clean, zero drift since 1be0088. Finding H-2 (needs human confirmation): CronList shows only 9d5ebb8f (triage); Freshness Watch cron 3d74fece expired (session-only 7d, registered 07-08). Last freshness run 2026-07-15. Two-loop setup degraded to one. Report-only: did NOT re-register any cron; escalated to STATE High. origin 3 behind (W-C). Bookkeeping self-committed (no push)."
+}
+```
+- 2026-07-17 report-only (daily-triage, cron 9d5ebb8f, run 1/2): code healthy (2/2, clean, no drift). NEW High H-2: Freshness Watch cron 3d74fece expired → only triage cron remains; freshness loop unscheduled since 07-15. Escalated as needs-human-confirmation (re-register?). Did not touch scheduling (report-only). Also noted triage cron nears its own 7d expiry. origin 3 behind (W-C). Bookkeeping self-committed (no push).
