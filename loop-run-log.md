@@ -355,3 +355,4 @@ Append one entry per run. Prune entries older than 30 days.
 }
 ```
 - 2026-07-17 report-only (daily-triage, cron 9d5ebb8f, run 1/2): code healthy (2/2, clean, no drift). NEW High H-2: Freshness Watch cron 3d74fece expired → only triage cron remains; freshness loop unscheduled since 07-15. Escalated as needs-human-confirmation (re-register?). Did not touch scheduling (report-only). Also noted triage cron nears its own 7d expiry. origin 3 behind (W-C). Bookkeeping self-committed (no push).
+- 2026-07-17 manual action (user-authorized "re-register freshness"): re-registered Freshness Watch session-cron 72d9238b (daily 18:23, 7d auto-expire). CronList now lists both loops again (triage 9d5ebb8f 10:03 + freshness 72d9238b 18:23). H-2 freshness part resolved. Remaining tracked as W-E (triage cron near own 7d expiry; session-cron durability). Not a loop run — no JSON entry. No code change, no push.
