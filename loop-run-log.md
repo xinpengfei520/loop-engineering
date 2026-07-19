@@ -356,3 +356,31 @@ Append one entry per run. Prune entries older than 30 days.
 ```
 - 2026-07-17 report-only (daily-triage, cron 9d5ebb8f, run 1/2): code healthy (2/2, clean, no drift). NEW High H-2: Freshness Watch cron 3d74fece expired → only triage cron remains; freshness loop unscheduled since 07-15. Escalated as needs-human-confirmation (re-register?). Did not touch scheduling (report-only). Also noted triage cron nears its own 7d expiry. origin 3 behind (W-C). Bookkeeping self-committed (no push).
 - 2026-07-17 manual action (user-authorized "re-register freshness"): re-registered Freshness Watch session-cron 72d9238b (daily 18:23, 7d auto-expire). CronList now lists both loops again (triage 9d5ebb8f 10:03 + freshness 72d9238b 18:23). H-2 freshness part resolved. Remaining tracked as W-E (triage cron near own 7d expiry; session-cron durability). Not a loop run — no JSON entry. No code change, no push.
+```json
+{
+  "run_id": "2026-07-19T10:03:00Z",
+  "pattern": "daily-triage",
+  "duration_s": 50,
+  "items_found": 1,
+  "actions_taken": 0,
+  "escalations": 1,
+  "tokens_estimate": 14000,
+  "outcome": "report-only",
+  "note": "Code healthy: npm test 2/2, tree clean, zero drift since 6e9a84e. Finding H-3 (needs human confirmation): triage cron 9d5ebb8f expired — CronList shows only freshness 72d9238b. Today's triage was the cron's final firing (recurring fires once more then deletes at 7d). Without re-register, triage stops running tomorrow. W-E realized a 2nd time (freshness 07-15, triage 07-19). Report-only: did NOT re-register; escalated to STATE High. origin 5 behind (W-C). Bookkeeping self-committed (no push)."
+}
+```
+```json
+{
+  "run_id": "2026-07-19T18:23:00Z",
+  "pattern": "freshness-watch",
+  "duration_s": 20,
+  "items_found": 0,
+  "actions_taken": 0,
+  "escalations": 0,
+  "tokens_estimate": 7000,
+  "outcome": "no-op",
+  "note": "All 4 checks pass: (1) STATE.md updated today (not >7d stale); (2) tree clean, no cross-run report-only pile-up (H-1 auto-commit stable); (3) oldest run-log entry 2026-07-01 = 18d (<30d); (4) no High item stuck >14d (H-3 opened today). No new F- finding. Corroborates triage's H-3 (triage cron expired) but did not re-register. Bookkeeping self-committed (no push)."
+}
+```
+- 2026-07-19 report-only (daily-triage, cron 9d5ebb8f final firing, run 1/2): code healthy (2/2, clean, no drift). NEW High H-3: triage cron 9d5ebb8f expired → CronList shows only freshness. Today = its last auto-firing; triage stops tomorrow unless re-registered. W-E realized 2nd time. Escalated (needs-human-confirmation). origin 5 behind (W-C). Bookkeeping self-committed.
+- 2026-07-19 no-op (freshness-watch, cron 72d9238b, run 1/2): all 4 checks pass (STATE fresh, tree clean, run-log 18d<30d, no High stuck >14d). No new F-. Corroborates H-3 but did not re-register (report-only). Bookkeeping self-committed (no push).
