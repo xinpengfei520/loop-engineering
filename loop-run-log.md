@@ -400,3 +400,17 @@ Append one entry per run. Prune entries older than 30 days.
 }
 ```
 - 2026-07-19 no-op (daily-triage, 2nd run of day): clean no-op, nothing changed since push-sync ee68984. Suite 2/2, both loops scheduled. Open items unchanged: W-A, W-E, W-C. Bookkeeping self-committed (no push).
+```json
+{
+  "run_id": "2026-07-19T18:23:30Z",
+  "pattern": "freshness-watch",
+  "duration_s": 25,
+  "items_found": 0,
+  "actions_taken": 0,
+  "escalations": 0,
+  "tokens_estimate": 8000,
+  "outcome": "no-op",
+  "note": "Run 2/2. All 4 checks pass: (1) STATE.md updated today; (2) tree clean, no cross-run report-only pile-up; (3) oldest REAL run entry 2026-07-01 = 18d (<30d) — the 2026-06-09 in the Format header is a placeholder sample, not a run (recorded as a grep trap in Recent Noise to avoid future false positives); (4) no High item stuck >14d (H-1/2/3 all resolved). No new F-. Bookkeeping self-committed (no push)."
+}
+```
+- 2026-07-19 no-op (freshness-watch, cron 72d9238b, run 2/2): all 4 checks pass. Verified + logged a grep trap: run-log Format example (2026-06-09) is a placeholder, not a real entry — oldest real run is 07-01 (18d). No new F-. Bookkeeping self-committed (no push).
