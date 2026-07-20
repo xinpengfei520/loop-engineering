@@ -1,6 +1,6 @@
 # Loop State — looper-engineering
 
-Last run: 2026-07-19（triage + freshness 双跑 + H-3 重登记 + push 同步）：代码/测试健康——`npm test` **2/2 绿**、工作树干净。**H-3 已解决**：triage cron `9d5ebb8f` 过期 → 应用户指示重登记为 `38b87a01`（10:03）；双 loop 恢复。**已 push**：`3ec138c..3003b8a`（7 提交）同步 origin，CI **success**（run `29682404711`）。`main` ↔ `origin` 同步 · Pattern: daily-triage + freshness-watch · Remote: `origin` → github.com/xinpengfei520/loop-engineering
+Last run: 2026-07-19（每日 triage 当日**第 2 次** = no-op）：`npm test` **2/2 绿**、工作树干净、自 `ee68984` 零漂移；`CronList` 确认双 loop 均在（triage `38b87a01` 10:03 + freshness `72d9238b` 18:23）。无新发现、无新增 High。`origin` 落后 1（`ee68984` push-sync bookkeeping，W-C 按设计）· Pattern: daily-triage · Remote: `origin` → github.com/xinpengfei520/loop-engineering
 
 > 第一周为 **report-only**：loop 只巡检、只提建议，不改业务代码、不 commit / push / 删除。
 
@@ -62,6 +62,7 @@ H-1 自动提交策略下工作树始终干净，但 bookkeeping commit 只落�
 - **测试命令口径**：规范命令是 `npm test`（=`node --test` 无参数，自动发现 `test/**/*.test.js`）→ 2/2 绿。**勿用 `node --test test/`**：Node 22 把路径参数当"待执行文件"，对目录报 `MODULE_NOT_FOUND` 假失败（2026-07-16 自造误报，非回归）。
 
 ## Done / Last Run
+- **2026-07-19（第 2 次）— 每日 triage（cron `38b87a01`，report-only，no-op）**：当日第二次触发（run 2/2）。自 push-sync（`ee68984`）后**零变化**——`git diff HEAD` 空、`npm test` **2/2 绿**、工作树干净、`loop-pause-all` 未激活、双 loop 经 `CronList` 确认均在。无新发现、无新增 High；开放项仍 W-A / W-E / W-C。
 - **2026-07-19 晚 — push 同步 origin（应用户指示 "push it"）**：`git push origin main` 推送 7 个累积提交（`3ec138c..3003b8a`）；`main` ↔ `origin` 同步；GitHub Actions CI **success**（run `29682404711`，12s）。清空 W-C 积压。push 仍为人工闸门；本 W-C-resolution bookkeeping 提交此后会使本地再领先 1（预期滞后）。
 - **2026-07-19 — 重新注册 Daily Triage cron（应用户指示 "Re-register triage now"）**：新登记 session-cron **`38b87a01`**（每日 10:03，7 天后自动过期）；`CronList` 恢复双 loop（triage `38b87a01` 10:03 + freshness `72d9238b` 18:23）。**H-3 解决**。持久排期仍作 W-E 备选。用户授权的排期动作，非 loop 运行、未改代码、未 push。
 - **2026-07-19 — Freshness Watch（cron `72d9238b`，report-only，run 1/2）**：四项检查**全过**——① STATE.md 今日刚更新（非 >7d 陈旧）；② 工作树干净、无跨运行未提交的 report-only 堆积（H-1 自动提交稳定）；③ run-log 最旧条目 2026-07-01 = 18d（<30d）；④ 无 High 项卡 >14d（H-3 今日新开）。**无新 F- 发现**；印证 triage 已记录的 cron 过期（见 H-3），未重复登记。Bookkeeping 自提交（未 push）。
