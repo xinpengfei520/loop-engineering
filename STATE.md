@@ -1,6 +1,6 @@
 # Loop State — looper-engineering
 
-Last run: 2026-07-19（Freshness Watch，run 2/2 = no-op）：四项检查**全过**——① STATE.md 今日刚更新（非陈旧）；② 工作树干净、无跨运行未提交堆积；③ run-log 最旧**真实**条目 07-01 = 18d（<30d；`2026-06-09` 是 Format 示例占位、非真实运行，勿误判）；④ 无 High 项卡 >14d（H-1/2/3 均已解决）。无新 F- 发现。`origin` 落后 2（W-C 按设计）· Pattern: freshness-watch · Remote: `origin` → github.com/xinpengfei520/loop-engineering
+Last run: 2026-07-20（triage + freshness 双跑，各 run 1/2 = no-op）：`npm test` **2/2 绿**、工作树干净、自 `0003c65` 零漂移；`CronList` 确认双 loop 均在（triage `38b87a01` ~07-26 到期 + freshness `72d9238b` ~07-24 到期）。Freshness 四项全过（STATE 不陈旧、无堆积、run-log 最旧真实条目 07-01=19d<30d、无 High 卡 >14d）。无新发现、无新增 High。`origin` 落后 3（W-C 按设计）· Pattern: daily-triage + freshness-watch · Remote: `origin` → github.com/xinpengfei520/loop-engineering
 
 > 第一周为 **report-only**：loop 只巡检、只提建议，不改业务代码、不 commit / push / 删除。
 
@@ -63,6 +63,7 @@ H-1 自动提交策略下工作树始终干净，但 bookkeeping commit 只落�
 - **run-log 最旧条目 grep 陷阱**：`loop-run-log.md` 顶部 Format 示例块含 `run_id: 2026-06-09`（**占位样例、非真实运行**）。freshness 检查 (3)「>30d」应看**真实**运行条目（最旧 = `2026-07-01`）；勿把 06-09 示例误判为超期需清理（2026-07-19 核实）。
 
 ## Done / Last Run
+- **2026-07-20 — triage + freshness 双跑（各 report-only，run 1/2，no-op）**：稳态健康——`npm test` **2/2 绿**、`loop-pause-all` 未激活、工作树干净、自 `0003c65` 零漂移。双 loop 经 `CronList` 确认均在（triage `38b87a01` + freshness `72d9238b`；下次到期 ~07-24/~07-26）。Freshness 四项全过（STATE 不陈旧、无堆积、run-log 最旧真实条目 07-01=19d<30d、无 High 卡 >14d）。无新发现、无新增 High；开放项仍 W-A / W-E / W-C。
 - **2026-07-19 — Freshness Watch（cron `72d9238b`，report-only，run 2/2，no-op）**：四项检查全过——STATE 今日刷新、工作树干净无堆积、run-log 最旧真实条目 07-01（18d<30d）、无 High 卡 >14d（H-1/2/3 均解决）。**核实并记下一处 grep 陷阱**：run-log 顶部 Format 示例的 `2026-06-09` 是占位样例、非真实运行，勿误判为超期（已入 Recent Noise）。无新 F- 发现。Bookkeeping 自提交（未 push）。
 - **2026-07-19（第 2 次）— 每日 triage（cron `38b87a01`，report-only，no-op）**：当日第二次触发（run 2/2）。自 push-sync（`ee68984`）后**零变化**——`git diff HEAD` 空、`npm test` **2/2 绿**、工作树干净、`loop-pause-all` 未激活、双 loop 经 `CronList` 确认均在。无新发现、无新增 High；开放项仍 W-A / W-E / W-C。
 - **2026-07-19 晚 — push 同步 origin（应用户指示 "push it"）**：`git push origin main` 推送 7 个累积提交（`3ec138c..3003b8a`）；`main` ↔ `origin` 同步；GitHub Actions CI **success**（run `29682404711`，12s）。清空 W-C 积压。push 仍为人工闸门；本 W-C-resolution bookkeeping 提交此后会使本地再领先 1（预期滞后）。

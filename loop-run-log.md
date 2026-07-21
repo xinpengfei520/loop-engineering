@@ -414,3 +414,30 @@ Append one entry per run. Prune entries older than 30 days.
 }
 ```
 - 2026-07-19 no-op (freshness-watch, cron 72d9238b, run 2/2): all 4 checks pass. Verified + logged a grep trap: run-log Format example (2026-06-09) is a placeholder, not a real entry — oldest real run is 07-01 (18d). No new F-. Bookkeeping self-committed (no push).
+```json
+{
+  "run_id": "2026-07-20T10:03:00Z",
+  "pattern": "daily-triage",
+  "duration_s": 25,
+  "items_found": 0,
+  "actions_taken": 0,
+  "escalations": 0,
+  "tokens_estimate": 9000,
+  "outcome": "no-op",
+  "note": "Run 1/2. Steady-state healthy: npm test 2/2, tree clean, zero drift since 0003c65. CronList confirms both loops scheduled (triage 38b87a01, freshness 72d9238b). No open High. origin 3 behind (W-C). Bookkeeping self-committed (no push)."
+}
+```
+```json
+{
+  "run_id": "2026-07-20T18:23:00Z",
+  "pattern": "freshness-watch",
+  "duration_s": 20,
+  "items_found": 0,
+  "actions_taken": 0,
+  "escalations": 0,
+  "tokens_estimate": 7000,
+  "outcome": "no-op",
+  "note": "Run 1/2. All 4 checks pass: STATE fresh (updated today), tree clean no pile-up, oldest real run entry 07-01 = 19d (<30d; 06-09 is format sample), no High stuck >14d (none open). No new F-. Bookkeeping self-committed (no push)."
+}
+```
+- 2026-07-20 no-op (daily-triage + freshness-watch, both run 1/2): steady-state healthy — 2/2 tests, tree clean, no drift, both loops scheduled, no open High. Freshness 4 checks all pass. No new findings. Open: W-A, W-E, W-C. Bookkeeping self-committed (no push).
