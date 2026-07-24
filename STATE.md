@@ -1,6 +1,6 @@
 # Loop State — looper-engineering
 
-Last run: 2026-07-22（Freshness Watch，run 1/2 = no-op）：四项检查**全过**——STATE 今日刷新、工作树干净无堆积、run-log 最旧真实条目 07-01=21d（<30d）、无 High 卡 >14d（无 open High）。**W-E 提醒**：freshness cron `72d9238b` ~07-24 到期（2 天内）。无新 F- 发现。`origin` 落后 6（W-C 按设计，累积中）· Pattern: freshness-watch · Remote: `origin` → github.com/xinpengfei520/loop-engineering
+Last run: 2026-07-23（triage + freshness 双跑，各 run 1/2 = no-op）：`npm test` **2/2 绿**、工作树干净、自 `089c5fa` 零漂移、无 open High；`CronList` 确认双 loop 均在。Freshness 四项全过（STATE 不陈旧、无堆积、run-log 最旧真实条目 07-01=22d<30d、无 High 卡 >14d）。**W-E 迫近**：freshness cron `72d9238b` **~07-24 明日最后一次触发后删除**（7 天到期）。无新发现、无新增 High。`origin` 落后 7（W-C 累积中）· Pattern: daily-triage + freshness-watch · Remote: `origin` → github.com/xinpengfei520/loop-engineering
 
 > 第一周为 **report-only**：loop 只巡检、只提建议，不改业务代码、不 commit / push / 删除。
 
@@ -63,6 +63,7 @@ H-1 自动提交策略下工作树始终干净，但 bookkeeping commit 只落�
 - **run-log 最旧条目 grep 陷阱**：`loop-run-log.md` 顶部 Format 示例块含 `run_id: 2026-06-09`（**占位样例、非真实运行**）。freshness 检查 (3)「>30d」应看**真实**运行条目（最旧 = `2026-07-01`）；勿把 06-09 示例误判为超期需清理（2026-07-19 核实）。
 
 ## Done / Last Run
+- **2026-07-23 — triage + freshness 双跑（各 report-only，run 1/2，no-op）**：稳态健康——`npm test` **2/2 绿**、`loop-pause-all` 未激活、工作树干净、自 `089c5fa` 零漂移、无 open High。双 loop 经 `CronList` 确认均在。Freshness 四项全过（run-log 最旧真实条目 07-01=22d<30d 等）。**W-E 迫近**：freshness cron `72d9238b` ~07-24（明日）最后一次触发后自删——到期后 triage 会巡检到并可重登记。无新发现、无新增 High；开放项 W-A / W-E / W-C（`origin` 落后 7）。
 - **2026-07-22 — Freshness Watch（cron `72d9238b`，report-only，run 1/2，no-op）**：四项检查全过——STATE 今日刷新、工作树干净无堆积、run-log 最旧真实条目 07-01（21d<30d）、无 High 卡 >14d（无 open High）。**W-E 提醒**：freshness cron 自身 ~07-24 到期（2 天内）。无新 F- 发现。Bookkeeping 自提交（未 push）。
 - **2026-07-22 — 每日 triage（cron `38b87a01`，report-only，run 1/2，no-op）**：稳态健康——`npm test` **2/2 绿**、`loop-pause-all` 未激活、工作树干净、自 `ccb4a6f` 零漂移、无 open High。**W-E 提醒**：freshness cron `72d9238b` ~07-24 到期（2 天内）。无新发现、无新增 High；开放项仍 W-A / W-E / W-C（`origin` 落后 5，累积中）。
 - **2026-07-21 — triage + freshness 双跑（各 report-only，run 1/2，no-op）**：稳态健康——`npm test` **2/2 绿**、`loop-pause-all` 未激活、工作树干净、自 `8ec079c` 零漂移。双 loop 经 `CronList` 确认均在。Freshness 四项全过（run-log 最旧真实条目 07-01=20d<30d、无 High 卡 >14d 等）。**W-E 提醒**：freshness cron `72d9238b` ~07-24 到期（3 天内）。无新发现、无新增 High；开放项仍 W-A / W-E / W-C（`origin` 落后 4）。
