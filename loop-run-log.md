@@ -523,3 +523,30 @@ Append one entry per run. Prune entries older than 30 days.
 }
 ```
 - 2026-07-23 no-op (daily-triage + freshness-watch, both run 1/2): steady-state healthy — 2/2 tests, tree clean, no drift, both loops scheduled, no open High. Freshness 4 checks pass. W-E imminent: freshness cron final firing ~07-24. Open: W-A, W-E, W-C (origin 7 behind). Bookkeeping self-committed (no push).
+```json
+{
+  "run_id": "2026-07-24T10:03:00Z",
+  "pattern": "daily-triage",
+  "duration_s": 22,
+  "items_found": 0,
+  "actions_taken": 0,
+  "escalations": 0,
+  "tokens_estimate": 8000,
+  "outcome": "no-op",
+  "note": "Run 1/2. Steady-state healthy: npm test 2/2, tree clean, zero drift since 1fdaf3b, no open High. Both loops still scheduled (CronList) — freshness 72d9238b not yet expired on 07-24. origin 8 behind (W-C, push recommended). Bookkeeping self-committed (no push)."
+}
+```
+```json
+{
+  "run_id": "2026-07-24T18:23:00Z",
+  "pattern": "freshness-watch",
+  "duration_s": 18,
+  "items_found": 0,
+  "actions_taken": 0,
+  "escalations": 0,
+  "tokens_estimate": 6000,
+  "outcome": "no-op",
+  "note": "Run 1/2. All 4 checks pass: STATE fresh (today), tree clean no pile-up, oldest real run entry 07-01 = 23d (<30d), no High stuck >14d (none open). No new F-. W-E: freshness cron 72d9238b still present on 07-24 (tonight may be final firing). Bookkeeping self-committed (no push)."
+}
+```
+- 2026-07-24 no-op (daily-triage + freshness-watch, both run 1/2): steady-state healthy — 2/2 tests, tree clean, no drift, both loops still scheduled, no open High. Freshness 4 checks pass. W-E: freshness cron not yet expired on 07-24. Open: W-A, W-E, W-C (origin 8 behind, push recommended). Bookkeeping self-committed (no push).
