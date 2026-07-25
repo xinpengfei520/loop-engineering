@@ -564,3 +564,17 @@ Append one entry per run. Prune entries older than 30 days.
 }
 ```
 - 2026-07-24 report-only (daily-triage, run 2/2): code healthy (2/2, clean, no drift). NEW High H-4: freshness cron 72d9238b expired/self-deleted → only triage remains; freshness stops tomorrow. W-E realized 3rd time (structural, every 7d). Triage expires ~07-26. Escalated as needs-human-confirmation (re-register vs durable schedule). origin 9 behind (W-C). Bookkeeping self-committed (no push).
+```json
+{
+  "run_id": "2026-07-25T10:03:00Z",
+  "pattern": "daily-triage",
+  "duration_s": 25,
+  "items_found": 0,
+  "actions_taken": 0,
+  "escalations": 0,
+  "tokens_estimate": 9000,
+  "outcome": "report-only",
+  "note": "Run 1/2. Code healthy: npm test 2/2, tree clean, zero drift since 2a72f19. No new findings. H-4 impact materialized: freshness did NOT run today (first missed day since its 07-24 final firing); H-4 open day 1, still awaiting human decision. CronList shows only triage 38b87a01, which expires ~07-26 (tomorrow) — after that BOTH loops are down and the self-healing net fails (it needs at least one loop alive). origin 10 behind (W-C, origin CI stale since 07-19). Bookkeeping self-committed (no push)."
+}
+```
+- 2026-07-25 report-only (daily-triage, run 1/2): code healthy, no new findings. H-4 impact materialized — freshness did not run today (open day 1). Triage cron expires ~07-26 → both loops down unless addressed; self-healing net fails at that point. origin 10 behind. Bookkeeping self-committed (no push).

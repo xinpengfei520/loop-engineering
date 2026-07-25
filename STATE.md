@@ -1,6 +1,6 @@
 # Loop State — looper-engineering
 
-Last run: 2026-07-24（每日 triage **run 2/2**）：代码侧健康——`npm test` **2/2 绿**、工作树干净、自 `b6d2c0f` 零漂移。**新发现 H-4（需人工确认）**：`CronList` 仅剩 triage `38b87a01`，**freshness cron `72d9238b` 已到期自删**（昨晚 18:23 为末次触发）→ freshness loop 明日起停跑；**W-E 第三次实现**，triage 自身 ~07-26 轮到。`origin` 落后 9（W-C，建议尽快 push）· Pattern: daily-triage · Remote: `origin` → github.com/xinpengfei520/loop-engineering
+Last run: 2026-07-25（每日 triage，run 1/2）：代码侧健康——`npm test` **2/2 绿**、工作树干净、自 `2a72f19` 零漂移。**H-4 仍开放**（已 1 天）：freshness **今日确未运行**（H-4 影响首次兑现，自 07-24 末次触发后停摆）。`CronList` 仅剩 triage `38b87a01`，**其自身 ~07-26（明日）到期**——若不处理，届时**两个 loop 全部停摆**。`origin` 落后 10（W-C，origin CI 自 07-19 未更新）· Pattern: daily-triage · Remote: `origin` → github.com/xinpengfei520/loop-engineering
 
 > 第一周为 **report-only**：loop 只巡检、只提建议，不改业务代码、不 commit / push / 删除。
 
@@ -11,7 +11,8 @@ Last run: 2026-07-24（每日 triage **run 2/2**）：代码侧健康——`npm 
 - **影响**：**freshness loop 明日起不再自动运行**（仅 triage 10:03 仍在）。四项 freshness 检查（STATE 陈旧度、report-only 堆积、run-log >30d、High 卡 >14d）暂无人执行。非紧急、无数据风险。
 - **W-E 第三次实现**：freshness 07-15 过期 → 07-17 重登记；triage 07-19 过期 → 同日重登记；freshness 07-24 再次过期（本项）。**每 7 天必然复发**。
 - **需要人工确认**：① 再次重登记 freshness（同 7 天 session-cron，18:23）；或 ② 按 W-E 改用**更持久**的排期（GitHub Actions 定时 / launchd / 系统 crontab），根治每 7 天轮流失效。**本 report-only 运行未自动改排期**——说一声即可。
-- **注**：triage `38b87a01`（07-19 注册）**~07-26 将到期**，两天内轮到它。若选 ②，建议一并处理。
+- **注**：triage `38b87a01`（07-19 注册）**~07-26（明日）到期**。若明日前未处理，**两个 loop 将全部停摆**，届时无任何自动巡检会发现此事（自愈网失效——它依赖至少一个 loop 存活）。
+- **进展（2026-07-25 triage run 1/2）**：H-4 开放第 1 天；freshness **今日确未运行**，影响已兑现。仍待你选 ① 重登记 / ② 持久排期。
 
 ### ~~H-3 — Daily Triage cron 已过期~~ ✅ 已解决（2026-07-19，应用户指示"Re-register triage now"）
 - **原现象**：`CronList`（2026-07-19）仅剩 freshness `72d9238b`；triage cron **`9d5ebb8f`（07-10 注册的 7 天 session-cron）已到期**（今日为其最后一次触发）。
@@ -70,6 +71,7 @@ H-1 自动提交策略下工作树始终干净，但 bookkeeping commit 只落�
 - **run-log 最旧条目 grep 陷阱**：`loop-run-log.md` 顶部 Format 示例块含 `run_id: 2026-06-09`（**占位样例、非真实运行**）。freshness 检查 (3)「>30d」应看**真实**运行条目（最旧 = `2026-07-01`）；勿把 06-09 示例误判为超期需清理（2026-07-19 核实）。
 
 ## Done / Last Run
+- **2026-07-25 — 每日 triage（cron `38b87a01`，report-only，run 1/2）**：代码侧健康——`npm test` **2/2 绿**、`loop-pause-all` 未激活、工作树干净、自 `2a72f19` 零漂移。**无新发现**；唯一变化是 **H-4 影响兑现**：freshness 今日确未运行（07-24 末次触发后停摆），H-4 开放第 1 天。`CronList` 仅剩 triage `38b87a01`，**~07-26 明日到期** → 届时双 loop 全停、自愈网失效。`origin` 落后 10（W-C）。
 - **2026-07-24（第 2 次）— 每日 triage（cron `38b87a01`，report-only，run 2/2）**：代码侧健康——`npm test` **2/2 绿**、`loop-pause-all` 未激活、工作树干净、自 `b6d2c0f` 零漂移。**新发现 H-4**：`CronList` 仅剩 triage，**freshness cron `72d9238b` 已到期自删**（昨晚 18:23 末次触发，与 07-21 起的预警一致）→ freshness loop 停跑，待人工确认重登记或改持久排期；**W-E 第三次实现**（结构性、每 7 天必复发）。按 report-only 未自动改排期。`origin` 落后 9（W-C）。
 - **2026-07-24 — triage + freshness 双跑（各 report-only，run 1/2，no-op）**：稳态健康——`npm test` **2/2 绿**、`loop-pause-all` 未激活、工作树干净、自 `1fdaf3b` 零漂移、无 open High。双 loop 经 `CronList` 确认**仍均在**（freshness `72d9238b` 07-24 尚未过期，今晚 18:23 或为末次触发后自删）。Freshness 四项全过（run-log 最旧真实条目 07-01=23d<30d 等）。无新发现、无新增 High；开放项 W-A / W-E / W-C（`origin` 落后 8，建议尽快 push）。
 - **2026-07-23 — triage + freshness 双跑（各 report-only，run 1/2，no-op）**：稳态健康——`npm test` **2/2 绿**、`loop-pause-all` 未激活、工作树干净、自 `089c5fa` 零漂移、无 open High。双 loop 经 `CronList` 确认均在。Freshness 四项全过（run-log 最旧真实条目 07-01=22d<30d 等）。**W-E 迫近**：freshness cron `72d9238b` ~07-24（明日）最后一次触发后自删——到期后 triage 会巡检到并可重登记。无新发现、无新增 High；开放项 W-A / W-E / W-C（`origin` 落后 7）。
