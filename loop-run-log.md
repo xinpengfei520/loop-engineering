@@ -550,3 +550,17 @@ Append one entry per run. Prune entries older than 30 days.
 }
 ```
 - 2026-07-24 no-op (daily-triage + freshness-watch, both run 1/2): steady-state healthy — 2/2 tests, tree clean, no drift, both loops still scheduled, no open High. Freshness 4 checks pass. W-E: freshness cron not yet expired on 07-24. Open: W-A, W-E, W-C (origin 8 behind, push recommended). Bookkeeping self-committed (no push).
+```json
+{
+  "run_id": "2026-07-24T21:30:00Z",
+  "pattern": "daily-triage",
+  "duration_s": 45,
+  "items_found": 1,
+  "actions_taken": 0,
+  "escalations": 1,
+  "tokens_estimate": 13000,
+  "outcome": "report-only",
+  "note": "Run 2/2. Code side healthy: npm test 2/2, tree clean, zero drift since b6d2c0f. Finding H-4 (needs human confirmation): freshness cron 72d9238b expired and self-deleted — CronList shows only triage 38b87a01. Its 18:23 run earlier today was the final firing, exactly as forecast since 07-21. Freshness loop stops running tomorrow. W-E realized a 3rd time (freshness 07-15, triage 07-19, freshness 07-24) — structural, recurs every 7d. Triage 38b87a01 itself expires ~07-26. Report-only: did NOT re-register; escalated to STATE High. origin 9 behind (W-C, push recommended). Bookkeeping self-committed (no push)."
+}
+```
+- 2026-07-24 report-only (daily-triage, run 2/2): code healthy (2/2, clean, no drift). NEW High H-4: freshness cron 72d9238b expired/self-deleted → only triage remains; freshness stops tomorrow. W-E realized 3rd time (structural, every 7d). Triage expires ~07-26. Escalated as needs-human-confirmation (re-register vs durable schedule). origin 9 behind (W-C). Bookkeeping self-committed (no push).
