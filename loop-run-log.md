@@ -578,3 +578,17 @@ Append one entry per run. Prune entries older than 30 days.
 }
 ```
 - 2026-07-25 report-only (daily-triage, run 1/2): code healthy, no new findings. H-4 impact materialized — freshness did not run today (open day 1). Triage cron expires ~07-26 → both loops down unless addressed; self-healing net fails at that point. origin 10 behind. Bookkeeping self-committed (no push).
+```json
+{
+  "run_id": "2026-07-26T00:00:00Z",
+  "pattern": "daily-triage",
+  "duration_s": 45,
+  "items_found": 1,
+  "actions_taken": 0,
+  "escalations": 1,
+  "tokens_estimate": 13000,
+  "outcome": "report-only",
+  "note": "MANUALLY triggered, not by cron. Code healthy: npm test 2/2, tree clean, zero drift since 25f0492. Finding H-5 (needs human confirmation): CronList returns 'No scheduled jobs' — triage 38b87a01 expired as forecast, freshness 72d9238b died 07-24. BOTH loops now unscheduled; automation fully stalled. Self-healing net is gone: prior 3 lapses were caught by the surviving loop, but with zero loops nothing will report the stall. W-E realized a 4th time, worst case (single-loop degradation -> zero loops). H-4 folded into H-5. Report-only: did NOT re-register. Options: (1) re-register both session-crons (7-day repeat), (2) durable schedule via GitHub Actions schedule: / launchd / crontab (recommended, repo already has CI). origin 11 behind (W-C, CI stale since 07-19). Bookkeeping self-committed (no push)."
+}
+```
+- 2026-07-26 report-only (daily-triage, MANUAL trigger): NEW High H-5 — CronList empty, both loops unscheduled, automation fully stalled; self-healing net gone (nothing left to report a stall). Triage cron expired as forecast; W-E 4th realization, zero loops. H-4 subsumed. Code side healthy (2/2, clean, no drift). Escalated needs-human-confirmation: re-register both vs durable schedule (GH Actions recommended). origin 11 behind. Bookkeeping self-committed (no push).
