@@ -20,45 +20,10 @@ Append one entry per run. Prune entries older than 30 days.
 ## Recent Runs
 
 <!-- Loop appends below this line -->
-```json
-{
-  "run_id": "2026-07-01T17:55:00Z",
-  "pattern": "daily-triage",
-  "duration_s": 40,
-  "items_found": 5,
-  "actions_taken": 0,
-  "escalations": 2,
-  "tokens_estimate": 30000,
-  "outcome": "report-only"
-}
-```
-- 2026-07-01 report-only: 5 findings (2 High → 需人工确认, 3 Watch). No code changed, no git ops. See STATE.md.
-```json
-{
-  "run_id": "2026-07-02T10:00:00Z",
-  "pattern": "daily-triage",
-  "duration_s": 35,
-  "items_found": 4,
-  "actions_taken": 0,
-  "escalations": 1,
-  "tokens_estimate": 22000,
-  "outcome": "report-only"
-}
-```
-- 2026-07-02 report-only: 4 findings (1 High: remote/push/CI, 3 Watch incl. new W-B missing lockfile). npm test green 2/2. No code changed, no git ops. See STATE.md.
-```json
-{
-  "run_id": "2026-07-03T10:00:00Z",
-  "pattern": "daily-triage",
-  "duration_s": 20,
-  "items_found": 0,
-  "actions_taken": 0,
-  "escalations": 0,
-  "tokens_estimate": 9000,
-  "outcome": "no-op"
-}
-```
-- 2026-07-03 no-op: no changes since 70ad53c. npm test green 2/2. Open items unchanged, no new findings. No code changed, no git ops.
+<!-- Pruned 2026-08-03 per this file's 30-day retention rule (header): removed the
+     2026-07-01, 07-02 and 07-03 entries (3 daily-triage runs; 2 report-only, 1 no-op).
+     Their outcomes are summarized in STATE.md "Done / Last Run". Oldest entry retained
+     below is 2026-07-06, which itself consolidates 07-04..07-06. -->
 ```json
 {
   "run_id": "2026-07-06T10:00:00Z",
