@@ -6,7 +6,17 @@ Last run: 2026-07-26（每日 triage，**手动触发**——非 cron）：代�
 
 ## High Priority (loop is acting or waiting on human)
 
-### H-5 — **全部 loop 已停止排期（自动化完全停摆）**（**需要人工确认 / needs human confirmation**）
+### ~~H-5 — 全部 loop 已停止排期~~ ✅ 已修复（2026-08-03，应用户指示选 ② 持久排期）
+- **修复**：新增 `.github/workflows/loop-daily.yml`——GitHub Actions 定时（`cron: '3 2 * * *'` UTC = **10:03 Asia/Shanghai**，沿用原 triage 时段）+ `workflow_dispatch` 手动触发。跑在 GitHub 服务器上，**不依赖本地 Claude 会话、不会 7 天过期**，`Actions` 页有完整运行历史可查。**W-E 根治。**
+- **两层设计**：
+  - **`heartbeat`（无需 secret，始终运行）**：`npm ci` + `npm test`，外加确定性 freshness 检查——STATE.md 陈旧度 >7d、run-log 最旧**真实**条目 >30d（已内置跳过 header 格式样例的 grep 陷阱）、open High 项。有发现则**开/追评一个 GitHub Issue** 通知你（同标题去重，不刷屏）。
+  - **`claude-triage`（可选，需 `ANTHROPIC_API_KEY` secret）**：`anthropics/claude-code-action@v1` 跑完整推理版 triage；**secret 不存在时自动跳过**（经 `check-key` job 传 output 门控，因为 job 级 `if` 不能直接读 `secrets`）。prompt 已声明无人值守：不改文件、不提交、不删除，结论作为 final message 输出。
+- **freshness loop 的归并**：原 18:23 独立 freshness 运行的四项检查，**已确定性地并入 `heartbeat`**（其中「High 卡 >14d」简化为「是否存在 open High」，因为精确开启日期无法可靠地从文件推断）。即由「两个 Claude loop」变为「一个每日 Actions 心跳 + 可选 Claude 推理层」，运动部件更少。
+- **验证**：YAML 经 Psych 解析通过（3 jobs / triggers 正确）；5 段内嵌 shell 全部 `bash -n` 通过；freshness 检查逻辑本地实跑——正确识别最旧真实条目 `2026-07-01`（**未**误判 header 里的 `2026-06-09` 样例）、正确列出 open High。
+- **⚠️ 生效前提**：GitHub Actions 的 `schedule` **只认默认分支上的 workflow 文件**——本提交 **push 到 `origin/main` 之前完全不生效**。见 W-C（当前本地领先 13）。
+
+<details><summary>原始记录（H-5 现象）</summary>
+
 - **现象**：`CronList`（2026-07-26）返回 **"No scheduled jobs."**——triage `38b87a01` 已如期到期自删，freshness `72d9238b` 已于 07-24 过期。**两个 loop 现均无排期。**
 - **关键**：**本次 triage 运行是你手动触发的，不是 cron 触发**。也就是说，自动化已完全停止；若你不主动跑，**不会有任何东西再运行、也不会有任何东西来告诉你它停了**——W-E 里那张"自愈网"依赖至少一个 loop 存活，现已失效。此前三次（07-15 / 07-19 / 07-24）都是靠另一个 loop 巡检发现的，这次没有。
 - **W-E 第四次实现**，且是最严重的一次：从"单 loop 退化"变成"零 loop"。
@@ -15,6 +25,8 @@ Last run: 2026-07-26（每日 triage，**手动触发**——非 cron）：代�
   - **① 重登记两个 session-cron**（triage 10:03 + freshness 18:23）——恢复快，但 7 天后必再次全停，且下次可能仍无人察觉。
   - **② 改用持久排期**（推荐：GitHub Actions `schedule:`，仓库已有 CI；或 launchd / 系统 crontab）——一次性投入，根治每 7 天轮流失效。
 - **本 report-only 运行未自动改排期**——说一声即可执行任一方案。
+
+</details>
 
 ### ~~H-4 — Freshness Watch cron 再次过期~~ ⬆️ 已并入 **H-5**（2026-07-26，triage cron 亦过期 → 升级为全停）
 - **现象**：`CronList`（2026-07-24 triage run 2/2）仅剩 triage `38b87a01`。freshness cron **`72d9238b`（07-17 注册的 7 天 session-cron）已到期自删**——昨晚 18:23 那次即其末次触发（run-log 已记 `2026-07-24T18:23:00Z` freshness 条目），与 07-21 起的预警一致。
@@ -37,7 +49,7 @@ Last run: 2026-07-26（每日 triage，**手动触发**——非 cron）：代�
 ### ~~H-1 — report-only 簿记的提交策略~~ ✅ 已解决（2026-07-12，选 (a)）
 用户选 **(a)**：授权 loop 每次运行末尾自动 commit 自身簿记（仅 `STATE.md` + `loop-run-log.md`，不 push）。已写入 `loop-constraints.md`「Bookkeeping」节，并同步 loop-triage / loop-freshness 技能、pattern 文档、`docs/safety.md`、README。F-1 churn 从此根治。见 Done。
 
-_当前 High：**H-5**（**全部 loop 停止排期**，自动化完全停摆，待人工确认恢复方案）。H-4 已并入 H-5。_ 开放观察：**W-E**（根因：session-cron 7 天过期——**已四度实现**，本次为零 loop）、**W-A**（L2 前置：真实测试 + linter）、**W-C**（未 push 漂移已 11，origin CI 自 07-19 陈旧）。
+_无 High 级阻塞（H-5 已由 GitHub Actions 持久排期修复，**待 push 生效**）。_ 开放观察：**W-E**（✅ 根治，见 H-5）、**W-A**（L2 前置：真实测试 + linter）、**W-C**（未 push 漂移已 13，**且新调度器 push 后才生效**——现在有实质理由尽快 push）。
 
 ## Watch List
 
@@ -56,7 +68,7 @@ _当前 High：**H-5**（**全部 loop 停止排期**，自动化完全停摆，
 2026-07-15 triage 首次调用 `npm test` 卡死、被 2min 超时中断。**排查结论：不可复现**——`node --test` 直跑 2/2 绿（50ms）、`npm test` 重跑 2/2 绿（0.21s，exit 0）。环境 node v22.16.0 / npm 10.9.2。判为一次性环境/npm wrapper 停顿（非测试或代码回归）。
 - **建议**：无需动作；若复现，考虑给 loop 的测试步骤加超时护栏（如 `gtimeout`/后台+轮询）或排查 npm（update-notifier / 缓存 / 网络）。**低优先，仅监控。**
 
-### W-E — session-cron 每 7 天静默失效（排期持久性；待决定）
+### ~~W-E — session-cron 每 7 天静默失效~~ ✅ 已根治（2026-08-03，改用 GitHub Actions 定时，见 H-5）
 - 两个 loop 目前都靠 **session-only cron**，7 天自动过期后**静默停跑**——正是 H-2 的根因（freshness `3d74fece` 07-08→~07-15 过期，07-16 起无 freshness 运行，直到 07-17 triage 巡检发现）。
 - 现状（2026-07-26）：**`CronList` 为空——零 loop 排期** → 见 **H-5**。**已四度实现**：freshness 07-15 过期（07-17 补）、triage 07-19 过期（同日补）、freshness 07-24 过期、triage 07-26 过期（当前全停）。**结论：必然复发的结构性问题**——每个 session-cron 注册后第 7 天准时消失。
 - **自愈网已失效**：前三次都靠"另一个 loop 巡检时发现"兜底；本次两个都没了，**没有任何自动机制会报告停摆**。这是逐次重登记方案的固有上限——它只在"至少一个 loop 活着"时成立。持久排期（GitHub Actions `schedule:` / launchd / crontab）是唯一能跳出该循环的做法。
